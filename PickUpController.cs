@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +19,7 @@ public class PickUpController : MonoBehaviour
     public Button pickGun;
     public Button ShootButton;
     public Animator animator;
+    public Camera Maincamera;
 
     //public BulletGun Shoot;
     //public bool isShoot;
@@ -30,20 +31,26 @@ public class PickUpController : MonoBehaviour
         {
             //isShoot = false;
             Drop();
-            
+
             //Add random rotation
-            
+
             ShootButton.interactable = false;
             animator.enabled = false;
-            
-            
+            Debug.Log("in the dropfunction");
+
+
         }
 
     }
     public void pickGunfunc()
     {
         Vector3 distanceToPlayer = player.position - transform.position;
-        if (!equipped && distanceToPlayer.magnitude <= pickUpRange )
+        RaycastHit hit;
+        if (Physics.Raycast(Maincamera.transform.position, Maincamera.transform.forward, out hit, 500f))
+        {
+            Debug.Log(hit.transform.name);
+        }
+        if (!equipped && hit.transform.tag == "Weapon" && distanceToPlayer.magnitude <= pickUpRange)
         {
             PickUp();
             //isShoot = true;
@@ -87,11 +94,12 @@ public class PickUpController : MonoBehaviour
         else
         {
             ShootButton.interactable = true;
-        }*/        
+        }*/
     }
 
     private void PickUp()
     {
+        
         equipped = true;
         slotFull = true;
 
@@ -103,7 +111,7 @@ public class PickUpController : MonoBehaviour
 
         //Make Rigidbody kinematic and BoxCollider a trigger
         rb.isKinematic = true;
-        coll.isTrigger = true;
+        //coll.isTrigger = true;
 
         //Enable script
         gunScript.enabled = true;
@@ -133,5 +141,6 @@ public class PickUpController : MonoBehaviour
 
         //Disable script
         gunScript.enabled = false;
+        //animator.enabled = true;
     }
 }
