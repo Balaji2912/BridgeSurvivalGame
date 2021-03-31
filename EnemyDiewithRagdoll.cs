@@ -18,16 +18,16 @@ public class EnemyDie : MonoBehaviour
 
 
     }
-    
+
     public void die()
     {
-        
+
         GetComponent<Animator>().enabled = false;
         setRigidbodyState(false);
         setColliderState(true);
         //GetComponent<Rigidbody>().AddExplosionForce(50f, transform.position, 10f);
         ragdollForce();
-        
+
     }
 
     void setRigidbodyState(bool state)
@@ -62,17 +62,18 @@ public class EnemyDie : MonoBehaviour
     void ragdollForce()
     {
         //Rigidbody[] rigidbodies = Physics.OverlapSphere(transform.position ,50f);
-        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();   
-        foreach (Rigidbody rb in rigidbodies) 
+        Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody rb in rigidbodies)
         {
             Rigidbody rigidbody = rb.GetComponent<Rigidbody>();
-            if(rigidbody !=null)
+            if (rigidbody != null)
             {
-                rigidbody.AddExplosionForce(700f, BulletSpawnPoint.transform.position, 300f);
+                //rigidbody.AddExplosionForce(700f, BulletSpawnPoint.transform.position, 300f);
+                rigidbody.AddForce(BulletSpawnPoint.transform.forward * 15f, ForceMode.Impulse);
             }
-        }  
+        }
     }
 
-    
+
 
 }
