@@ -12,7 +12,7 @@ public class BulletGun : MonoBehaviour
     public float maxBullet, reload = 1.5f, upwardForce, spread;//MuzzleFlashTime = 0.3f;
     //public GameObject Light;
     //public bool lighton;
-    public Animator animator, Recoil;
+    public Animator animatorr;
     public Button Bu;
     //public AudioSource shootsound, ReloadSound;
     private float currentBullet;
@@ -49,9 +49,9 @@ public class BulletGun : MonoBehaviour
 
     IEnumerator FireAnimation()
     {
-        animator.SetBool("Fire", true);
+        animatorr.SetBool("Fire", true);
         yield return new WaitForSeconds(FireanimTime);
-        animator.SetBool("Fire", false);
+        animatorr.SetBool("Fire", false);
     }
 
     // Update is called once per frame
@@ -141,9 +141,9 @@ public class BulletGun : MonoBehaviour
     IEnumerator reloadf2()
     {
         //ReloadSound.Play();
-        animator.SetBool("Reload", true);
+        animatorr.SetBool("Reload", true);
         yield return new WaitForSeconds(1f);
-        animator.SetBool("Reload", false);
+        animatorr.SetBool("Reload", false);
     }
     /*IEnumerator Muzzlefunction()
     {
